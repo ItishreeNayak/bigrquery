@@ -11,6 +11,8 @@
 #' @param default_dataset (optional) default dataset for any table references in
 #'   \code{query}, either as a string in the format used by BigQuery or as a
 #'   list with \code{project_id} and \code{dataset_id} entries
+#' @param maximum_billing_tier (optional) If \code{NULL}, take Google's default value.
+#'   Otherwise, the value passed is the maximum billing tier accepted for this request.
 #' @family jobs
 #' @return a job resource list, as documented at
 #'   \url{https://developers.google.com/bigquery/docs/reference/v2/jobs}

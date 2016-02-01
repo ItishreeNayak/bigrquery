@@ -12,6 +12,9 @@
 #'
 #'  Google documentation for handling large results:
 #'  \url{https://developers.google.com/bigquery/querying-data#largequeryresults}
+#'
+#'  Google documentation for billing tiers:
+#'  \url{https://cloud.google.com/bigquery/pricing}
 #' @export
 #' @examples
 #' \dontrun{
@@ -23,6 +26,9 @@
 #' # Use a default dataset for the query
 #' sql <- "SELECT year, month, day, weight_pounds FROM natality LIMIT 5"
 #' query_exec(sql, project = project, default_dataset = "publicdata:samples")
+#' # Use a bigger billing tier
+#' sql <- "SELECT myComplexQuery..."
+#' query_exec(sql, project = project, default_dataset = "publicdata:samples", maximum_billing_tier = 2)
 #' }
 query_exec <- function(query, project, destination_table = NULL,
                        default_dataset = NULL, page_size = 1e4, max_pages = 10,

@@ -26,11 +26,12 @@
 #' }
 query_exec <- function(query, project, destination_table = NULL,
                        default_dataset = NULL, page_size = 1e4, max_pages = 10,
-                       warn = TRUE) {
+                       warn = TRUE, maximum_billing_tier = NULL) {
 
   dest <- run_query_job(query = query, project = project,
                         destination_table = destination_table,
-                        default_dataset = default_dataset)
+                        default_dataset = default_dataset,
+                        maximum_billing_tier = maximum_billing_tier)
 
   list_tabledata(dest$projectId, dest$datasetId, dest$tableId,
     page_size = page_size, max_pages = max_pages, warn = warn)
@@ -38,11 +39,13 @@ query_exec <- function(query, project, destination_table = NULL,
 
 # Submits a query job, waits for it, and returns information on the destination
 # table for further consumption by the list_tabledata* functions
-run_query_job <- function(query, project, destination_table, default_dataset) {
+run_query_job <- function(query, project, destination_table, default_dataset,
+                          maximum_billing_tier) {
   assert_that(is.string(query), is.string(project))
 
   job <- insert_query_job(query, project, destination_table = destination_table,
-                          default_dataset = default_dataset)
+                          default_dataset = default_dataset,
+                          maximum_billing_tier = maximum_billing_tier)
   job <- wait_for(job)
 
   job$configuration$query$destinationTable

@@ -18,7 +18,7 @@
 #'   \url{https://developers.google.com/bigquery/docs/reference/v2/jobs/insert}
 #' @export
 insert_query_job <- function(query, project, destination_table = NULL,
-                             default_dataset = NULL) {
+                             default_dataset = NULL, maximum_billing_tier = NULL) {
   assert_that(is.string(project), is.string(query))
 
   url <- sprintf("projects/%s/jobs", project)
@@ -29,6 +29,10 @@ insert_query_job <- function(query, project, destination_table = NULL,
       )
     )
   )
+  if (!is.null(maximum_billing_tier)) {
+    assert_that(is.count(maximum_billing_tier))
+    body$configuration$query$maximumBillingTier <- TRUE
+  }
 
   if (!is.null(destination_table)) {
     if (is.character(destination_table)) {

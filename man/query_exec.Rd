@@ -5,7 +5,8 @@
 \title{Run a asynchronous query and retrieve results.}
 \usage{
 query_exec(query, project, destination_table = NULL, default_dataset = NULL,
-  page_size = 10000, max_pages = 10, warn = TRUE)
+  page_size = 10000, max_pages = 10, warn = TRUE,
+  maximum_billing_tier = NULL)
 }
 \arguments{
 \item{query}{SQL query string}
@@ -27,6 +28,9 @@ to retrieve the complete dataset.}
 
 \item{warn}{If \code{TRUE}, warn when there are rows remaining to
 be pulled down from database.}
+
+\item{maximum_billing_tier}{(optional) If \code{NULL}, take Google's default value.
+Otherwise, the value passed is the maximum billing tier accepted for this request.}
 }
 \description{
 This is a high-level function that inserts a query job
@@ -44,6 +48,9 @@ query_exec(sql, project = project, destination_table = "my_dataset.results")
 # Use a default dataset for the query
 sql <- "SELECT year, month, day, weight_pounds FROM natality LIMIT 5"
 query_exec(sql, project = project, default_dataset = "publicdata:samples")
+# Use a bigger billing tier
+sql <- "SELECT myComplexQuery..."
+query_exec(sql, project = project, default_dataset = "publicdata:samples", maximum_billing_tier = 2)
 }
 }
 \seealso{
@@ -52,5 +59,8 @@ Google documentation describing asynchronous queries:
 
  Google documentation for handling large results:
  \url{https://developers.google.com/bigquery/querying-data#largequeryresults}
+
+ Google documentation for billing tiers:
+ \url{https://cloud.google.com/bigquery/pricing}
 }
 

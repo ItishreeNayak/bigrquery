@@ -5,7 +5,7 @@
 \title{Create a new query job.}
 \usage{
 insert_query_job(query, project, destination_table = NULL,
-  default_dataset = NULL)
+  default_dataset = NULL, maximum_billing_tier = NULL)
 }
 \arguments{
 \item{query}{SQL query string}
@@ -19,6 +19,9 @@ either as a string in the format used by BigQuery, or as a list with
 \item{default_dataset}{(optional) default dataset for any table references in
 \code{query}, either as a string in the format used by BigQuery or as a
 list with \code{project_id} and \code{dataset_id} entries}
+
+\item{maximum_billing_tier}{(optional) If \code{NULL}, take Google's default value.
+Otherwise, the value passed is the maximum billing tier accepted for this request.}
 }
 \value{
 a job resource list, as documented at
